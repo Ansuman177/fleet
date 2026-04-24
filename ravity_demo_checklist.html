@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravity.io — Pre-Demo Readiness Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e2e0d8;
+    --border2: #ccc9bd;
+    --text: #1a1917;
+    --text2: #6b6960;
+    --text3: #9e9c93;
+    --accent: #d4620a;
+    --accent-light: #fef3eb;
+    --accent-border: #f0c49a;
+    --green: #1d7a4a;
+    --green-light: #eaf5ef;
+    --green-border: #9dd4b8;
+    --red: #c0302a;
+    --red-light: #fdf0ef;
+    --red-border: #f0ada9;
+    --yellow: #a06a00;
+    --yellow-light: #fdf8ea;
+    --yellow-border: #f0d98a;
+    --blue: #1a5fa8;
+    --blue-light: #eef4fc;
+    --blue-border: #a8c8f0;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --font: 'DM Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+
+  /* ── HEADER ── */
+  .header { background: var(--text); padding: 0; }
+  .header-inner { max-width: 900px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 30px; height: 30px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-mark svg { display: block; }
+  .logo-name { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+  .logo-tag { font-size: 12px; color: #888; margin-left: 8px; font-weight: 400; }
+  .header-right { font-size: 12px; color: #666; font-family: var(--mono); }
+
+  /* ── MAIN ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 32px 80px; }
+
+  /* ── STEPPER ── */
+  .stepper { display: flex; align-items: stretch; gap: 0; margin-bottom: 36px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); }
+  .step { flex: 1; padding: 14px 16px; display: flex; align-items: center; gap: 10px; border-right: 1px solid var(--border); cursor: default; transition: background 0.15s; }
+  .step:last-child { border-right: none; }
+  .step.active { background: var(--accent-light); }
+  .step.done { background: var(--green-light); }
+  .step-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; background: var(--surface2); color: var(--text2); font-family: var(--mono); }
+  .step.active .step-num { background: var(--accent); color: #fff; }
+  .step.done .step-num { background: var(--green); color: #fff; }
+  .step-info { min-width: 0; }
+  .step-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.2; }
+  .step.active .step-title { color: var(--accent); }
+  .step.done .step-title { color: var(--green); }
+  .step-sub { font-size: 11px; color: var(--text3); }
+
+  /* ── SECTION ── */
+  .section { display: none; }
+  .section.active { display: block; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── CARD ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 20px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+
+  /* ── FORM ── */
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 5px; }
+  .field input[type=text], .field input[type=date], .field input[type=time],
+  .field input[type=datetime-local], .field input[type=email],
+  .field select, .field textarea {
+    width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius);
+    font-family: var(--font); font-size: 14px; color: var(--text); background: var(--surface);
+    outline: none; transition: border 0.15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .field textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
+  .field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6960' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ── TAG INPUT ── */
+  .tag-input-wrap { border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 8px; background: var(--surface); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; min-height: 42px; cursor: text; transition: border 0.15s; }
+  .tag-input-wrap:focus-within { border-color: var(--accent); }
+  .tag-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); border-radius: 20px; padding: 2px 10px 2px 10px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .tag-pill button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 14px; line-height: 1; padding: 0; margin-left: 2px; opacity: 0.6; }
+  .tag-pill button:hover { opacity: 1; }
+  .tag-input-field { border: none; outline: none; font-family: var(--font); font-size: 13px; color: var(--text); background: transparent; flex: 1; min-width: 120px; padding: 3px 4px; }
+
+  /* ── CHECKBOX GRID ── */
+  .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .check-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; user-select: none; transition: all 0.12s; }
+  .check-item:hover { border-color: var(--border2); background: var(--surface2); }
+  .check-item.sel { background: var(--accent-light); border-color: var(--accent-border); }
+  .check-item input { width: 14px; height: 14px; accent-color: var(--accent); flex-shrink: 0; cursor: pointer; }
+  .check-item-text { font-size: 13px; color: var(--text); line-height: 1.3; }
+  .check-item-sub { font-size: 11px; color: var(--text3); }
+
+  /* ── DEVOPS TABLE ── */
+  .checks-wrap { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .checks-group-header { padding: 8px 16px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
+  .check-row { display: grid; grid-template-columns: 1fr 150px 200px; gap: 0; border-bottom: 1px solid var(--border); align-items: stretch; }
+  .check-row:last-child { border-bottom: none; }
+  .check-row:hover { background: var(--surface2); }
+  .check-row-label { padding: 10px 16px; font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .check-row-status { padding: 8px 12px; border-left: 1px solid var(--border); display: flex; align-items: center; gap: 4px; }
+  .check-row-note { padding: 8px 12px; border-left: 1px solid var(--border); display: flex; align-items: center; }
+  .check-row-note input { border: none; outline: none; font-family: var(--font); font-size: 12px; color: var(--text); background: transparent; width: 100%; }
+  .check-row-note input::placeholder { color: var(--text3); }
+  .s-btn { padding: 4px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; background: var(--surface); color: var(--text2); font-family: var(--font); transition: all 0.12s; }
+  .s-btn:hover { border-color: var(--border2); }
+  .s-btn.ok { background: var(--green-light); color: var(--green); border-color: var(--green-border); }
+  .s-btn.fail { background: var(--red-light); color: var(--red); border-color: var(--red-border); }
+  .s-btn.na { background: var(--surface2); color: var(--text3); border-color: var(--border); }
+  .check-idx { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 20px; }
+
+  /* ── TESTER TABLE ── */
+  .tester-table { width: 100%; border-collapse: collapse; }
+  .tester-table th { padding: 9px 14px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); text-align: left; }
+  .tester-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); vertical-align: middle; }
+  .tester-table tr:last-child td { border-bottom: none; }
+  .tester-table tr:hover td { background: var(--surface2); }
+  .tester-table input[type=text] { border: none; outline: none; font-family: var(--font); font-size: 12px; color: var(--text); background: transparent; width: 100%; }
+  .tester-table input[type=text]::placeholder { color: var(--text3); }
+
+  /* ── VERDICT ── */
+  .verdict { border-radius: var(--radius-lg); padding: 12px 16px; margin-bottom: 16px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .verdict.green { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+  .verdict.red { background: var(--red-light); color: var(--red); border: 1px solid var(--red-border); }
+  .verdict.yellow { background: var(--yellow-light); color: var(--yellow); border: 1px solid var(--yellow-border); }
+
+  /* ── SUMMARY CARD ── */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .summary-row { padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-key { font-size: 12px; color: var(--text2); min-width: 110px; }
+  .summary-val { font-size: 13px; color: var(--text); font-weight: 500; flex: 1; }
+
+  /* ── VERDICT BUTTONS ── */
+  .verdict-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .v-btn { padding: 8px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; background: var(--surface); color: var(--text2); font-family: var(--font); transition: all 0.15s; }
+  .v-btn:hover { border-color: var(--border2); background: var(--surface2); }
+  .v-btn.active-go { background: var(--green-light); color: var(--green); border-color: var(--green-border); }
+  .v-btn.active-cond { background: var(--yellow-light); color: var(--yellow); border-color: var(--yellow-border); }
+  .v-btn.active-nogo { background: var(--red-light); color: var(--red); border-color: var(--red-border); }
+
+  /* ── BUTTONS ── */
+  .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .btn { padding: 10px 22px; border-radius: var(--radius); font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-family: var(--font); transition: all 0.15s; }
+  .btn:hover { background: var(--surface2); border-color: var(--border2); }
+  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-primary:hover { background: #b85409; border-color: #b85409; }
+  .btn-ghost { border-color: transparent; color: var(--text2); }
+  .btn-ghost:hover { background: var(--surface2); border-color: var(--border); }
+
+  /* ── REPORT ── */
+  .report-block { font-family: var(--mono); font-size: 12px; line-height: 1.8; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; white-space: pre-wrap; word-break: break-word; color: var(--text); }
+  .report-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+  /* ── PRIORITY BADGE ── */
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge-crit { background: var(--red-light); color: var(--red); border: 1px solid var(--red-border); }
+  .badge-high { background: var(--yellow-light); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-std { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+
+  /* ── MISC ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .helper { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s ease; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .header { background: #fff; border-bottom: 2px solid #1a1917; }
+    .logo-name, .header-right { color: #1a1917 !important; }
+    .stepper, .btn-row, .report-actions { display: none !important; }
+    .section { display: block !important; }
+    .card { page-break-inside: avoid; border: 1px solid #ccc !important; }
+    .checks-wrap { page-break-inside: avoid; }
+    @page { margin: 20mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="5.5" height="5.5" rx="1.5" fill="white"/>
+          <rect x="8.5" y="2" width="5.5" height="5.5" rx="1.5" fill="white" opacity="0.55"/>
+          <rect x="2" y="8.5" width="5.5" height="5.5" rx="1.5" fill="white" opacity="0.55"/>
+          <rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.5" fill="white"/>
+        </svg>
+      </div>
+      <span class="logo-name">ravity.io <span class="logo-tag">Pre-Demo Readiness</span></span>
+    </div>
+    <div class="header-right" id="hdr-date"></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:33%"></div></div>
+
+  <div class="stepper">
+    <div class="step active" id="tab-1">
+      <div class="step-num">1</div>
+      <div class="step-info"><div class="step-title">Demo Brief</div><div class="step-sub">Filled by presenter</div></div>
+    </div>
+    <div class="step" id="tab-2">
+      <div class="step-num">2</div>
+      <div class="step-info"><div class="step-title">DevOps Sign-off</div><div class="step-sub">Infrastructure &amp; platform checks</div></div>
+    </div>
+    <div class="step" id="tab-3">
+      <div class="step-num">3</div>
+      <div class="step-info"><div class="step-title">Test-Run Sign-off</div><div class="step-sub">Tester validates all flows</div></div>
+    </div>
+    <div class="step" id="tab-4">
+      <div class="step-num">4</div>
+      <div class="step-info"><div class="step-title">Report</div><div class="step-sub">Final sign-off &amp; export</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 1 — DEMO BRIEF
+  ══════════════════════════════════════════ -->
+  <div class="section active" id="sec-1">
+
+    <div class="card">
+      <div class="card-title">Demo Details</div>
+      <div class="row3">
+        <div class="field"><label>Demo Date</label><input type="date" id="f-date"></div>
+        <div class="field"><label>Demo Time</label><input type="time" id="f-time"></div>
+        <div class="field">
+          <label>Demo Format</label>
+          <select id="f-format">
+            <option value="">— select —</option>
+            <option>In-person</option>
+            <option>Remote / Video call</option>
+            <option>Hybrid</option>
+            <option>Recorded walkthrough</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Client / Audience Name</label><input type="text" id="f-client" placeholder="e.g. Ashok Leyland, Maruti, Internal Review"></div>
+        <div class="field"><label>Presenter Name</label><input type="text" id="f-presenter" placeholder="Your name"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>DevOps Engineer Assigned</label><input type="text" id="f-devops-name" placeholder="Name of DevOps person"></div>
+        <div class="field"><label>Tester Assigned</label><input type="text" id="f-tester-name" placeholder="Name of tester"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Product(s) Being Demoed</div>
+      <div class="check-grid" id="products-group">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="FleetMind AI Platform"><div><div class="check-item-text">FleetMind AI Platform</div><div class="check-item-sub">Fleet management, agents, dashboard</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="DTC Diagnostics Agent"><div><div class="check-item-text">DTC Diagnostics Agent</div><div class="check-item-sub">Vehicle fault code analysis</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Driver Safety Platform"><div><div class="check-item-text">Driver Safety Platform</div><div class="check-item-sub">Behaviour scoring, coaching</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Fuel Intelligence"><div><div class="check-item-text">Fuel Intelligence</div><div class="check-item-sub">Fraud detection, consumption analytics</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Fleet Analytics Dashboard"><div><div class="check-item-text">Fleet Analytics Dashboard</div><div class="check-item-sub">KPIs, reports, live maps</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Custom AI Agent"><div><div class="check-item-text">Custom AI Agent</div><div class="check-item-sub">Bespoke conversational agent</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="API / Integration Layer"><div><div class="check-item-text">API / Integration Layer</div><div class="check-item-sub">REST API, webhooks, connectors</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Ravity Product Website"><div><div class="check-item-text">Ravity Product Website</div><div class="check-item-sub">ravity.io public-facing site</div></div></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Platforms &amp; Tools in Demo</div>
+      <div class="check-grid" id="tools-group">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Web Dashboard / UI"><div><div class="check-item-text">Web Dashboard / UI</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mobile App"><div><div class="check-item-text">Mobile App</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="bdb.ai Studio"><div><div class="check-item-text">bdb.ai Studio</div><div class="check-item-sub">AI agent & KPI platform</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="DS Lab Script Runner"><div><div class="check-item-text">DS Lab Script Runner</div><div class="check-item-sub">Python pipeline execution</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Kafka / Message Queue"><div><div class="check-item-text">Kafka / Message Queue</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="WebSocket / Real-time Feed"><div><div class="check-item-text">WebSocket / Real-time Feed</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="REST API"><div><div class="check-item-text">REST API</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="PostgreSQL Database"><div><div class="check-item-text">PostgreSQL Database</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="MongoDB"><div><div class="check-item-text">MongoDB</div></div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Third-party Integration"><div><div class="check-item-text">Third-party Integration</div><div class="check-item-sub">Telematics OEM, GPS, etc.</div></div></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Features &amp; Flows</div>
+      <div class="field">
+        <label>Features / Agents to Demo</label>
+        <div class="helper" style="margin-bottom:8px;">Type a feature name and press Enter to add</div>
+        <div class="tag-input-wrap" id="features-wrap" onclick="document.getElementById('features-input').focus()">
+          <input class="tag-input-field" id="features-input" placeholder="e.g. Fuel Fraud Detection, Driver Behaviour Agent..." autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>What must work flawlessly — specific flows &amp; scenarios</label>
+        <textarea id="f-flows" placeholder="Describe exact steps that must succeed. e.g.:&#10;• Fuel fraud card appears on dashboard within 30 seconds&#10;• Driver coaching action opens pre-filled form&#10;• Fleet Manager agent answers 'top 5 risky drivers' correctly&#10;• DTC agent identifies fault code P0300 and explains cause"></textarea>
+      </div>
+      <div class="field">
+        <label>Demo Environment / URL(s)</label>
+        <input type="text" id="f-urls" placeholder="e.g. https://demo.ravity.io, bdb.ai tenant URL, staging server IP">
+      </div>
+      <div class="field">
+        <label>Special Notes for DevOps &amp; Tester</label>
+        <textarea id="f-notes" placeholder="e.g. Use client-specific test data, reset Kafka offset before starting, ensure 10 fraud records seeded, use fleet_id=2..."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <span style="font-size:12px;color:var(--text3);">Complete all sections above before handing off to DevOps</span>
+      <button class="btn btn-primary" onclick="goTo(2)">Next: DevOps Checks →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 2 — DEVOPS SIGN-OFF
+  ══════════════════════════════════════════ -->
+  <div class="section" id="sec-2">
+
+    <div class="card" id="brief-summary"></div>
+
+    <div class="card">
+      <div class="card-title">DevOps Engineer</div>
+      <div class="row2">
+        <div class="field"><label>Engineer Name</label><input type="text" id="f-devops-confirm" placeholder="Confirm your name"></div>
+        <div class="field"><label>Check Completed At</label><input type="datetime-local" id="f-devops-time"></div>
+      </div>
+    </div>
+
+    <div id="devops-checks-container"></div>
+
+    <div class="card">
+      <div class="card-title">DevOps Remarks &amp; Blockers</div>
+      <div class="field">
+        <textarea id="f-devops-remark" placeholder="Any blockers found, workarounds applied, config changes made, items deferred with justification..."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Next: Assign Tester →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 3 — TESTER SIGN-OFF
+  ══════════════════════════════════════════ -->
+  <div class="section" id="sec-3">
+
+    <div id="devops-verdict" class="verdict yellow" style="display:none;"></div>
+
+    <div class="card">
+      <div class="card-title">Tester Details</div>
+      <div class="row3">
+        <div class="field"><label>Tester Name</label><input type="text" id="f-tester-confirm" placeholder="Confirm your name"></div>
+        <div class="field"><label>Test-Run Start</label><input type="datetime-local" id="f-test-start"></div>
+        <div class="field"><label>Test-Run End</label><input type="datetime-local" id="f-test-end"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Feature-level Test Results</div>
+      <table class="tester-table" id="tester-table">
+        <thead><tr><th style="width:220px;">Feature / Flow</th><th style="width:130px;">Result</th><th>Observations</th></tr></thead>
+        <tbody id="tester-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Overall Tester Verdict</div>
+      <div class="verdict-btns">
+        <button class="v-btn" id="v-go" onclick="setVerdict('GO')">✓ GO for Demo</button>
+        <button class="v-btn" id="v-cond" onclick="setVerdict('CONDITIONAL')">⚠ Conditional GO — minor issues noted</button>
+        <button class="v-btn" id="v-nogo" onclick="setVerdict('NO-GO')">✗ No-Go — critical issues found</button>
+      </div>
+      <div class="field">
+        <label>Tester Notes</label>
+        <textarea id="f-tester-notes" placeholder="Issues found, workarounds used, risks to flag to presenter, items to monitor live..."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Generate Sign-off Report →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 4 — REPORT
+  ══════════════════════════════════════════ -->
+  <div class="section" id="sec-4">
+    <div id="final-verdict-banner" class="verdict green"></div>
+
+    <div class="card">
+      <div class="card-title">Signed-off Report</div>
+      <pre class="report-block" id="report-output"></pre>
+      <div class="report-actions">
+        <button class="btn btn-primary" onclick="copyReport()">Copy Report</button>
+        <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+        <button class="btn btn-ghost" onclick="goTo(1)">Start New Checklist</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── State ──
+var S = {
+  products: [], tools: [], features: [],
+  statuses: {}, testerRes: {}, verdict: null
+};
+
+// ── Header date ──
+document.getElementById('hdr-date').textContent = new Date().toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short', year:'numeric'});
+
+// ── Tag input ──
+document.getElementById('features-input').addEventListener('keydown', function(e) {
+  if ((e.key === 'Enter' || e.key === ',') && this.value.trim()) {
+    e.preventDefault();
+    addTag(this.value.trim());
+    this.value = '';
+  }
+  if (e.key === 'Backspace' && this.value === '' && S.features.length) {
+    removeTag(S.features[S.features.length - 1]);
+  }
+});
+
+function addTag(val) {
+  if (S.features.indexOf(val) !== -1) return;
+  S.features.push(val);
+  renderTags();
+}
+
+function removeTag(val) {
+  S.features = S.features.filter(function(f){ return f !== val; });
+  renderTags();
+}
+
+function renderTags() {
+  var wrap = document.getElementById('features-wrap');
+  var inp = document.getElementById('features-input');
+  wrap.querySelectorAll('.tag-pill').forEach(function(p){ p.remove(); });
+  S.features.forEach(function(f) {
+    var pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.innerHTML = f + '<button onclick="removeTag(\'' + f.replace(/'/g, "\\'") + '\')">×</button>';
+    wrap.insertBefore(pill, inp);
+  });
+}
+
+// ── Checkbox toggle ──
+function toggleCheck(label) {
+  var cb = label.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
+  label.classList.toggle('sel', cb.checked);
+}
+
+function getChecked(groupId) {
+  return Array.from(document.querySelectorAll('#' + groupId + ' input[type=checkbox]:checked')).map(function(c){ return c.value; });
+}
+
+// ── Stepper ──
+function goTo(n) {
+  if (n === 2) {
+    S.products = getChecked('products-group');
+    S.tools = getChecked('tools-group');
+    buildBriefSummary();
+    buildDevopsChecks();
+  }
+  if (n === 3) {
+    buildTesterTable();
+    showDevopsVerdict();
+  }
+  if (n === 4) {
+    buildReport();
+  }
+  [1,2,3,4].forEach(function(i) {
+    document.getElementById('sec-' + i).classList.remove('active');
+    var t = document.getElementById('tab-' + i);
+    t.classList.remove('active', 'done');
+    if (i < n) t.classList.add('done');
+  });
+  document.getElementById('sec-' + n).classList.add('active');
+  document.getElementById('tab-' + n).classList.add('active');
+  document.getElementById('progress').style.width = (n / 4 * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Brief summary ──
+function buildBriefSummary() {
+  var d = document.getElementById('f-date').value;
+  var t = document.getElementById('f-time').value;
+  var fmt = document.getElementById('f-format').value;
+  document.getElementById('brief-summary').innerHTML =
+    '<div class="card-title">Demo Brief</div>' +
+    '<div class="summary-row"><span class="summary-key">Date / Time</span><span class="summary-val">' + (d || '—') + (t ? ' at ' + t : '') + (fmt ? ' · ' + fmt : '') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Client</span><span class="summary-val">' + (gv('f-client') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Presenter</span><span class="summary-val">' + (gv('f-presenter') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Products</span><span class="summary-val">' + (S.products.join(', ') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Tools / Platforms</span><span class="summary-val">' + (S.tools.join(', ') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Features</span><span class="summary-val">' + (S.features.join(', ') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Demo URLs</span><span class="summary-val">' + (gv('f-urls') || '—') + '</span></div>' +
+    '<div class="summary-row"><span class="summary-key">Special notes</span><span class="summary-val">' + (gv('f-notes') || '—') + '</span></div>';
+}
+
+// ── DevOps Checks ──
+var DEVOPS_CHECKS = {
+  'Always — Infrastructure': [
+    { id: 'server', label: 'Server / cloud instance running and accessible from demo machine', priority: 'crit' },
+    { id: 'db', label: 'Primary database connection confirmed and responsive', priority: 'crit' },
+    { id: 'auth', label: 'Demo account credentials valid — login tested end-to-end', priority: 'crit' },
+    { id: 'network', label: 'Network — all required hosts/ports reachable from presentation device', priority: 'crit' },
+    { id: 'ssl', label: 'SSL/HTTPS — no certificate warnings on any demo URL', priority: 'high' },
+    { id: 'demodata', label: 'Demo data — test records seeded and up to date', priority: 'high' },
+    { id: 'fallback', label: 'Fallback plan ready — screenshots / recording available if live demo breaks', priority: 'std' },
+    { id: 'staging', label: 'Staging / demo environment is NOT the production instance', priority: 'high' },
+  ],
+  'Always — Performance': [
+    { id: 'load', label: 'Primary demo page / dashboard loads in under 5 seconds', priority: 'high' },
+    { id: 'concur', label: 'No other load tests or jobs running that could slow the environment', priority: 'std' },
+    { id: 'logs', label: 'Application logs clear — no ERROR / CRITICAL entries in last 30 minutes', priority: 'high' },
+  ],
+  'Web Dashboard / UI': [
+    { id: 'ui-load', label: 'Dashboard loads without JS errors in browser console', priority: 'crit' },
+    { id: 'ui-login', label: 'Client-facing login flow tested with demo credentials', priority: 'crit' },
+    { id: 'ui-data', label: 'All widgets / charts rendering with live or seeded data', priority: 'high' },
+    { id: 'ui-ws', label: 'Real-time elements (if any) receiving updates — no stale data', priority: 'high' },
+  ],
+  'Mobile App': [
+    { id: 'mob-install', label: 'Latest build installed on demo device', priority: 'crit' },
+    { id: 'mob-login', label: 'App login and home screen load confirmed', priority: 'crit' },
+    { id: 'mob-notif', label: 'Push notifications working (if part of demo)', priority: 'std' },
+  ],
+  'bdb.ai Studio': [
+    { id: 'bdb-login', label: 'bdb.ai Studio — login and navigation working without errors', priority: 'crit' },
+    { id: 'bdb-pub', label: 'All demo agents — Publish_Status = True in Studio', priority: 'crit' },
+    { id: 'bdb-kb', label: 'Agent knowledge bases — uploaded, indexed, and returning correct responses', priority: 'crit' },
+    { id: 'bdb-kpi', label: 'KPI widgets — loading without "Metadata not available" or empty-data errors', priority: 'high' },
+    { id: 'bdb-action', label: 'Trigger actions — metaData.inputData populated, pre-filled forms appear on trigger', priority: 'high' },
+  ],
+  'DS Lab Script Runner': [
+    { id: 'dslab-open', label: 'DS Lab script runner accessible and executes test run without errors', priority: 'crit' },
+    { id: 'dslab-deps', label: 'All required pip packages installed (check imports at top of script)', priority: 'crit' },
+    { id: 'dslab-output', label: 'Pipeline function returns expected DataFrame output', priority: 'crit' },
+  ],
+  'Kafka / Message Queue': [
+    { id: 'kafka-broker', label: 'Kafka broker running — topic list accessible', priority: 'crit' },
+    { id: 'kafka-topics', label: 'All demo topics exist and have recent messages', priority: 'crit' },
+    { id: 'kafka-offset', label: 'Consumer offsets reset if demo requires replaying events', priority: 'high' },
+  ],
+  'WebSocket / Real-time Feed': [
+    { id: 'ws-url', label: 'WebSocket server URL active and accepting connections', priority: 'crit' },
+    { id: 'ws-push', label: 'Test message pushed and received by client without disconnect', priority: 'crit' },
+    { id: 'ws-accumulate', label: 'Client accumulating records correctly (not overwriting on each message)', priority: 'high' },
+  ],
+  'REST API': [
+    { id: 'api-health', label: 'API health endpoint returning 200 OK', priority: 'crit' },
+    { id: 'api-auth', label: 'API auth / token valid — test call authenticated correctly', priority: 'crit' },
+    { id: 'api-key-routes', label: 'All key demo endpoints returning expected responses', priority: 'crit' },
+  ],
+  'PostgreSQL Database': [
+    { id: 'pg-conn', label: 'PostgreSQL connection confirmed — query executes successfully', priority: 'crit' },
+    { id: 'pg-tables', label: 'All required tables present and accessible', priority: 'high' },
+    { id: 'pg-data', label: 'Demo data populated in key tables — row counts verified', priority: 'high' },
+  ],
+  'MongoDB': [
+    { id: 'mongo-conn', label: 'MongoDB connection confirmed', priority: 'crit' },
+    { id: 'mongo-collections', label: 'Key demo collections present with expected documents', priority: 'high' },
+  ],
+  'Third-party Integration': [
+    { id: 'tpi-creds', label: 'Third-party API credentials valid and not expired', priority: 'crit' },
+    { id: 'tpi-test', label: 'Test call to third-party service returns expected response', priority: 'crit' },
+    { id: 'tpi-rate', label: 'Not close to rate limits for the demo duration', priority: 'high' },
+  ],
+};
+
+function buildDevopsChecks() {
+  S._checks = [];
+  var container = document.getElementById('devops-checks-container');
+  container.innerHTML = '';
+
+  var groups = ['Always — Infrastructure', 'Always — Performance'];
+  S.tools.forEach(function(t) { if (DEVOPS_CHECKS[t]) groups.push(t); });
+
+  groups.forEach(function(group) {
+    var checks = DEVOPS_CHECKS[group];
+    if (!checks) return;
+    var rows = '';
+    checks.forEach(function(c, i) {
+      S._checks.push(c);
+      var idx = S._checks.length;
+      var badge = c.priority === 'crit' ? '<span class="badge badge-crit">Critical</span>' :
+                  c.priority === 'high' ? '<span class="badge badge-high">High</span>' :
+                  '<span class="badge badge-std">Standard</span>';
+      rows += '<div class="check-row">' +
+        '<div class="check-row-label"><span class="check-idx">' + (idx < 10 ? '0' + idx : idx) + '</span>' + c.label + ' ' + badge + '</div>' +
+        '<div class="check-row-status"><button class="s-btn" onclick="setStat(\'' + c.id + '\',\'ok\',this)">OK</button><button class="s-btn" onclick="setStat(\'' + c.id + '\',\'fail\',this)">Fail</button><button class="s-btn" onclick="setStat(\'' + c.id + '\',\'na\',this)">N/A</button></div>' +
+        '<div class="check-row-note"><input type="text" placeholder="note / blocker" id="note-' + c.id + '"></div>' +
+      '</div>';
+    });
+    var wrap = document.createElement('div');
+    wrap.className = 'checks-wrap card';
+    wrap.style.padding = '0';
+    wrap.style.overflow = 'hidden';
+    wrap.innerHTML = '<div class="checks-group-header">' + group + '</div>' + rows;
+    container.appendChild(wrap);
+  });
+}
+
+function setStat(id, val, btn) {
+  var row = btn.closest('.check-row-status');
+  row.querySelectorAll('.s-btn').forEach(function(b){ b.classList.remove('ok','fail','na'); });
+  btn.classList.add(val);
+  S.statuses[id] = val;
+}
+
+// ── DevOps verdict banner ──
+function showDevopsVerdict() {
+  var fails = S._checks.filter(function(c){ return S.statuses[c.id] === 'fail'; });
+  var critFails = S._checks.filter(function(c){ return S.statuses[c.id] === 'fail' && c.priority === 'crit'; });
+  var unchecked = S._checks.filter(function(c){ return !S.statuses[c.id]; });
+  var banner = document.getElementById('devops-verdict');
+  banner.style.display = 'flex';
+  if (critFails.length > 0) {
+    banner.className = 'verdict red';
+    banner.textContent = 'DevOps flagged ' + critFails.length + ' CRITICAL failure(s). Demo should NOT proceed until resolved.';
+  } else if (fails.length > 0) {
+    banner.className = 'verdict yellow';
+    banner.textContent = 'DevOps flagged ' + fails.length + ' failure(s). Proceed with caution — confirm workarounds in place.';
+  } else if (unchecked.length > 0) {
+    banner.className = 'verdict yellow';
+    banner.textContent = unchecked.length + ' DevOps item(s) not yet marked. Tester proceed with awareness.';
+  } else {
+    banner.className = 'verdict green';
+    banner.textContent = 'All DevOps checks passed. Environment cleared for test-run.';
+  }
+}
+
+// ── Tester table ──
+function buildTesterTable() {
+  var rows = S.features.length ? S.features : ['General end-to-end flow'];
+  var tbody = document.getElementById('tester-tbody');
+  tbody.innerHTML = '';
+  rows.forEach(function(f) {
+    var key = 'tr-' + f.replace(/[^a-z0-9]/gi, '_');
+    tbody.innerHTML += '<tr>' +
+      '<td>' + f + '</td>' +
+      '<td><button class="s-btn" onclick="setTR(\'' + key + '\',\'pass\',this)">Pass</button> <button class="s-btn" onclick="setTR(\'' + key + '\',\'fail\',this)">Fail</button></td>' +
+      '<td><input type="text" placeholder="what you observed..." id="obs-' + key + '"></td>' +
+    '</tr>';
+    S.testerRes[key] = null;
+  });
+}
+
+function setTR(key, val, btn) {
+  var row = btn.closest('td');
+  row.querySelectorAll('.s-btn').forEach(function(b){ b.classList.remove('ok','fail'); });
+  btn.classList.add(val === 'pass' ? 'ok' : 'fail');
+  S.testerRes[key] = val;
+}
+
+function setVerdict(v) {
+  S.verdict = v;
+  document.getElementById('v-go').classList.remove('active-go');
+  document.getElementById('v-cond').classList.remove('active-cond');
+  document.getElementById('v-nogo').classList.remove('active-nogo');
+  if (v === 'GO') document.getElementById('v-go').classList.add('active-go');
+  if (v === 'CONDITIONAL') document.getElementById('v-cond').classList.add('active-cond');
+  if (v === 'NO-GO') document.getElementById('v-nogo').classList.add('active-nogo');
+}
+
+// ── Report ──
+function buildReport() {
+  var lines = [];
+  var sep = '─'.repeat(54);
+  lines.push('RAVITY.IO — PRE-DEMO SIGN-OFF REPORT');
+  lines.push(sep);
+  lines.push('Generated : ' + new Date().toLocaleString('en-IN'));
+  lines.push('');
+  lines.push('DEMO BRIEF');
+  lines.push('Date/Time : ' + (gv('f-date') || '') + ' ' + (gv('f-time') || '') + (gv('f-format') ? ' · ' + gv('f-format') : ''));
+  lines.push('Client    : ' + (gv('f-client') || '—'));
+  lines.push('Presenter : ' + (gv('f-presenter') || '—'));
+  lines.push('Products  : ' + (S.products.join(', ') || '—'));
+  lines.push('Platforms : ' + (S.tools.join(', ') || '—'));
+  lines.push('Features  : ' + (S.features.join(', ') || '—'));
+  lines.push('URLs      : ' + (gv('f-urls') || '—'));
+  lines.push('Flows     : ' + (gv('f-flows') || '—'));
+  lines.push('Dev notes : ' + (gv('f-notes') || '—'));
+  lines.push('');
+  lines.push(sep);
+  lines.push('DEVOPS SIGN-OFF');
+  lines.push('Engineer  : ' + (gv('f-devops-confirm') || gv('f-devops-name') || '—'));
+  lines.push('Checked at: ' + (gv('f-devops-time') || '—'));
+  lines.push('');
+  S._checks.forEach(function(c, i) {
+    var idx = (i + 1 < 10 ? '0' : '') + (i + 1);
+    var stat = (S.statuses[c.id] || 'unchecked').toUpperCase();
+    var note = (document.getElementById('note-' + c.id) || {}).value || '';
+    lines.push('[' + stat + '] ' + idx + '. ' + c.label + (note ? ' — ' + note : ''));
+  });
+  lines.push('');
+  lines.push('Remark: ' + (gv('f-devops-remark') || '—'));
+  lines.push('');
+  lines.push(sep);
+  lines.push('TEST-RUN SIGN-OFF');
+  lines.push('Tester    : ' + (gv('f-tester-confirm') || gv('f-tester-name') || '—'));
+  lines.push('Start     : ' + (gv('f-test-start') || '—'));
+  lines.push('End       : ' + (gv('f-test-end') || '—'));
+  lines.push('');
+  var features = S.features.length ? S.features : ['General end-to-end flow'];
+  features.forEach(function(f) {
+    var key = 'tr-' + f.replace(/[^a-z0-9]/gi, '_');
+    var res = S.testerRes[key] || 'unchecked';
+    var obs = (document.getElementById('obs-' + key) || {}).value || '';
+    lines.push('[' + res.toUpperCase() + '] ' + f + (obs ? ' — ' + obs : ''));
+  });
+  lines.push('');
+  lines.push('Verdict   : ' + (S.verdict || 'NOT SET'));
+  lines.push('Notes     : ' + (gv('f-tester-notes') || '—'));
+  lines.push('');
+  lines.push(sep);
+
+  document.getElementById('report-output').textContent = lines.join('\n');
+
+  var banner = document.getElementById('final-verdict-banner');
+  if (S.verdict === 'GO') {
+    banner.className = 'verdict green';
+    banner.textContent = '✓ CLEARED — Demo is GO. All stages signed off.';
+  } else if (S.verdict === 'CONDITIONAL') {
+    banner.className = 'verdict yellow';
+    banner.textContent = '⚠ CONDITIONAL GO — Minor issues noted. Presenter briefed.';
+  } else if (S.verdict === 'NO-GO') {
+    banner.className = 'verdict red';
+    banner.textContent = '✗ NO-GO — Critical issues found. Demo postponed until resolved.';
+  } else {
+    banner.className = 'verdict yellow';
+    banner.textContent = 'Verdict not set. Review tester section.';
+  }
+}
+
+function copyReport() {
+  var text = document.getElementById('report-output').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = 'Copy Report'; }, 2000);
+  });
+}
+
+function gv(id) { var el = document.getElementById(id); return el ? el.value : ''; }
+</script>
+</body>
+</html>
